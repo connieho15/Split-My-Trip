@@ -1,0 +1,150 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<h2>JSON Object Creation in JavaScript</h2>
+
+
+<p id="payer"></p>
+<p id="currency"></p>
+<p id="price"></p>
+<p id="description"></p>
+<p id="paidfor"> </p>
+<p id="paidforr"> </p>
+<p id="transactions"></p>
+
+
+<script>
+var expenselist = {"expenses": [ 
+	{"payer":"Connie Ho","currency":"XPF","price":"100.00","description":"Dinner", "paidfor": 
+			[{"name":"Jessica Que"}, {"name":"Eric Tsoi"}]},
+	]};
+
+
+var obj = expenselist.expenses[0];
+
+
+var payer = obj.payer + "<br>";
+document.getElementById("payer").innerHTML = payer;
+var amount = obj.price + "<br>";
+document.getElementById("price").innerHTML = amount;
+var paidforlength = obj.paidfor.length;
+var paidfor = new Array(4);
+
+
+for (i = 0; i < obj.paidfor.length; i++) { 
+    paidfor[i] = obj.paidfor[i].name + "<br>";
+}
+document.getElementById("paidfor").innerHTML = paidfor[0];
+document.getElementById("paidforr").innerHTML = paidfor[1];
+
+
+	var group = ["Connie Ho", "Jessica Que", "Eric Tsoi", "Ostap M"];
+	localStorage.setItem("Connie Ho", 10);
+	localStorage.setItem("Jessica Que", 20);
+	localStorage.setItem("Eric Tsoi", -10);
+	localStorage.setItem("Ostap M", -20);
+	//update total when expense added
+	function updateTotal() {
+		var x = amount/paidforlength; //read
+		var currentamount = localStorage.getItem(payer);  // players current amount
+		localStorage.setItem(payer, currentamount + amount);
+		for(i=0; i < paidforlength; ++i){
+			//paidfor[i].total -= x;	//write
+			var currentamount = localStorage.getItem(paidfor[i]);  // players current amount
+			localStorage.setItem(paidfor[i], currentamount - x);
+		}
+	}
+	//create final transactions
+	//paidfor[0].name
+	var totals = []; //getTotals();
+	var transactions = [];
+	var count = 0;
+
+
+
+
+	function solve() {
+		getTotals();
+		console.log(totals);
+		while(count != 0){
+			var min = 0;
+			var minKey = "";
+			var max = 0;
+			var maxKey = "";
+			for(var key in totals){
+				if(totals[key] < min){
+					min = totals[key];
+					minKey = key;
+				}
+				else if(totals[key] > max){
+					max = totals[key];
+					maxKey = key;
+				}
+			}		
+			
+			var transaction = new Object();
+			transaction.giver = minKey;
+			transaction.reciever = maxKey;
+			var absMin = Math.abs(min);
+			var absMax = Math.abs(max);
+			
+			if(absMin > absMax){
+				totals[minKey] = minKey + maxKey;
+				delete totals[maxKey];
+				
+				transaction.amount = absMax;
+			}
+
+
+			if(absMax > absMin){
+				//person.total = 0;
+				delete totals[minKey];
+				totals[maxKey] = minKey + maxKey;
+				transaction.amount = absMin;
+			}
+			transactions.push(transaction);
+			totals = getTotals();		
+		}
+	}
+	
+	function getTotals(){
+		totals = [];
+		for(i=0; i < 4; ++i){	//4 is size of group
+			count = 0;
+			var curr = localStorage.getItem(group[i]);
+			if(curr != 0){
+				var name = group[i];
+				//totals[name] = {};
+				totals.push({
+					key: group[i],
+					value: curr //read
+				});
+				count++;
+			}
+		}
+	}
+	solve();
+	document.getElementById("transactions").innerHTML = transactions;
+
+
+	console.log(transactions);
+
+
+
+
+
+
+</script>
+  
+
+
+</body>
+</html>
+
+

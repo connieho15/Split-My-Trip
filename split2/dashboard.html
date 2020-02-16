@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  
+  <title>Split my trip</title>
+
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+    
+    <link href="bootstrap3/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/ct-paper.css" rel="stylesheet"/>
+    <link href="assets/css/examples.css" rel="stylesheet" /> 
+        
+    <!--     Fonts and icons     -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+      
+</head>
+<body>
+    <nav class="navbar navbar-ct-transparent navbar-fixed-top" role="navigation-demo" id="register-navbar">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          
+          <a class="navbar-brand" href="index.html">Split My Trip</a>
+        </div>
+    
+        
+      </div><!-- /.container-->
+    </nav> 
+    
+    <div class="wrapper">
+        <div class="register-background"> 
+            <div class="filter-black"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 ">
+                            <div class="register-card">
+                                <h3 class="title">Dashboard</h3>
+                                <form class="register-form">
+                                    <h3 id= "member1"></h3>
+                                    <br>
+                                    <h3 id ="member2"></h3>
+                                    <br>
+                                    <h3 id="member3"></h3>
+                                    <br>
+                                    <h3 id="member4"></h3>
+                                    <br>
+                                    <button class="btn btn-danger btn-block">Expenses</button>
+                                    <a href="addexpense.html" class="btn btn-block btn-success">Add expense</a>
+                                    <button class="btn btn-primary btn-block">Add member</button>
+
+                                </form>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>     
+            
+        </div>
+    </div>    
+
+
+    <script>
+
+document.getElementById("member1").innerHTML = "Connie Ho"
+document.getElementById("member2").innerHTML = "Jessica Que"
+document.getElementById("member3").innerHTML = "Ostap M"
+document.getElementById("member4").innerHTML = "Eric Tsoi"
+
+var expenselist = {"expenses": [ 
+    {"payer":"Connie Ho","currency":"XPF","price":"100.00","description":"Dinner", "paidfor": 
+            [{"name":"Jessica Que"}, {"name":"Eric Tsoi"}]},
+    {"payer":"Ostap M","currency":"XPF","price":"500.00","description":"Hotel", "paidfor": 
+            [{"name":"Jessica Que"}, {"name":"Eric Tsoi"}, {"name":"Connie Ho"}]},
+    {"payer":"Connie Ho","currency":"XPF","price":"100.00","description":"Dinner", "paidfor": 
+            [{"name":"Jessica Que"}, {"name":"Eric Tsoi"}]},
+    ]};
+
+    var obj = expenselist.expenses[0];
+
+var payer = obj.payer + "<br>";
+document.getElementById("payer").innerHTML = payer;
+var amount = obj.price + "<br>";
+document.getElementById("price").innerHTML = amount;
+var paidforlength = obj.paidfor.length;
+var paidfor = new Array(4);
+
+for (i = 0; i < obj.paidfor.length; i++) { 
+    paidfor[i] = obj.paidfor[i].name + "<br>";
+}
+document.getElementById("paidfor").innerHTML = paidfor[0];
+document.getElementById("paidforr").innerHTML = paidfor[1];
+
+    </script>  
+
+</body>
+
+
+
+
+
+<script src="assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="assets/js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+
+<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
+
+<!--  Plugins -->
+<script src="assets/js/ct-paper-checkbox.js"></script>
+<script src="assets/js/ct-paper-radio.js"></script>
+<script src="assets/js/bootstrap-select.js"></script>
+<script src="assets/js/bootstrap-datepicker.js"></script>
+
+<script src="assets/js/ct-paper.js"></script>
+    
+</html>
